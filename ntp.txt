@@ -1,0 +1,29 @@
+# /etc/ntp.conf
+
+# Specify the drift file location
+driftfile /var/lib/ntp/drift
+
+# Specify the log file location
+logfile /var/log/ntp.log
+
+# Specify the server pool to use for time synchronization
+# You can replace these servers with your preferred NTP servers
+pool 0.fedora.pool.ntp.org iburst
+pool 1.fedora.pool.ntp.org iburst
+pool 2.fedora.pool.ntp.org iburst
+pool 3.fedora.pool.ntp.org iburst
+
+# Restrict NTP access
+restrict default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+
+# Allow LAN machines to synchronize their time with this server
+# Replace the network address and subnet mask as needed
+restrict 192.168.0.0 mask 255.255.255.0 nomodify notrap
+
+# Allow localhost to use the server for synchronization
+restrict 127.0.0.1
+
+# Use the local clock as a reference if no other servers are available
+server 127.127.1.0
+fudge 127.127.1.0 stratum 10
